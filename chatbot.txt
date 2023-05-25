@@ -1,0 +1,69 @@
+import datetime
+import random
+
+def chatbot():
+    user={}
+    print('hieee,I am Friday...... please enter your queries')
+    topics={
+        'PICT':{
+            'Comp HOD':'GV Kale',
+            'IT HOD':'XYZ',
+            'EnTC HOD':'Shivss',
+            'Staff':random.choice(['great','intelligent', 'brillient']),
+            'books':4000
+        }
+    }
+    greetings=['hi','hello','moshi moshi','how are you','hey']
+    goodbyes=['bye','tata','exit','quit']
+    thanks=['thanks','mention not','welcome','Euuuuu']
+
+    while True:
+        print('chat: ',end=' ')
+        query=input()
+        print('ans: ',end=' ')
+        try:
+            if query in greetings:
+                print(random.choice(greetings))
+            elif query in goodbyes:
+                print(random.choice(goodbyes))
+                break
+            elif query in thanks:
+                print(random.choice(thanks))
+            elif (query.split()[0])=='eval':                
+                ls=(query.split())[1:]
+                print(' '.join(ls)+' is '+str(eval(' '.join(ls))))
+
+            elif (query.split()[0])=='set':
+                ls=query.split()
+                user[ls[1]]=ls[3]
+                print(ls[1]+' is set as '+ls[3])
+
+            elif (query.split()[0])=='get':
+                ls=query.split()
+                try:
+                    print(ls[1]+' is '+user[ls[1]])
+
+                except KeyError:
+                    print('you havnt set the paarameter yet')
+
+            elif '?' in query:
+                try:
+                    ls=query.split()
+                    first=ls[2].strip("'s")
+                    second=(' '.join(ls[3:])).strip("?")
+                    if second not in topics[first].keys():
+                        print('please visit www.pict.edu')
+                    else:
+                        print(ls[2]+' '+second +' is '+topics[first][second])
+
+                except KeyError:
+                    print('this is above my scope')
+            
+            else:
+                print('sorry didnt catch that')
+
+
+        except Exception as e:
+            print(str(e) +' not possible.')
+
+chatbot()

@@ -1,0 +1,74 @@
+
+
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+
+vector<pair<int,int>> prims(int n,vector<vector<vector<int>>> &adj){
+    priority_queue<pair<int,pair<int,int>>,vector<pair<int,pair<int,int>>>,greater<pair<int,pair<int,int>>> > pq;
+    vector<int> vis(n,0);
+    pq.push({0,{0,-1}});
+    int sum=0;
+
+    vector<pair<int,int>> ans;
+
+    while(!pq.empty()){
+        auto it=pq.top();
+        int node=it.second.first;
+        pq.pop();
+        int wt=it.first;
+        int parent=it.second.second;
+
+        if(vis[node]){
+            continue;
+        }
+        vis[node]=1;
+        sum+=wt;
+
+        ans.push_back({parent,node});
+
+
+        for(auto it:adj[node]){
+            int adjnode=it[0];
+            int weight=it[1];
+
+            if(!vis[adjnode]){
+                pq.push({weight,{adjnode,node}});
+            }
+        }
+
+    }
+    cout<<"SUm: "<<sum<<endl;
+    return ans;
+
+
+
+
+}
+
+int main(){
+    int n,m;
+    cin>>n>>m;
+
+    vector<vector<vector<int>>> adj(n+1);
+    for(int i=0;i<m;i++){
+        int u,v,wt;
+        cin>>u>>v>>wt;
+        adj[u].push_back({v,wt});
+        adj[v].push_back({u,wt});        
+    }
+
+    vector<pair<int,int>> ans=prims(n,adj);
+    // for(int i=0;i<ans.size();i++){
+    //     cout<<ans[i].first<<" "<<ans[i].second<<endl;
+    // }
+
+
+    for (int i = 0; i < ans.size(); i++)
+    {
+        cout << ans[i].first << " " << ans[i].second << endl;
+    }
+
+    return 0;
+}

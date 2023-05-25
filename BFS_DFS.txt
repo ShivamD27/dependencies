@@ -1,0 +1,186 @@
+// input:
+// 7 7
+// 1 2
+// 1 3
+// 2 4
+// 2 5
+// 2 6
+// 2 7
+// 7 3
+
+//BFS-DFS
+#include<bits/stdc++.h>
+using namespace std;
+
+int flag=0;
+
+void dfs(int src,int n,int m,vector<vector<int>> &adj,vector<int>&vis,int s){
+    if(s==src){
+        flag=1;
+    }
+    vis[src]=1;
+    cout<<src<<" ";
+    for(auto it:adj[src]){
+        if(!vis[it]){
+            dfs(it,n,m,adj,vis,s);
+        }
+    }
+    
+}
+
+ 
+void bfs(int src,int n,int m,vector<vector<int>> &adj,int s){
+    
+    queue<int> q;
+    q.push(src);
+
+    // vector<int> ans;
+    vector<int> vis(n+1,0);
+    vis[src]=1;
+    while(!q.empty()){
+        
+        int node=q.front();
+        if(node==s){
+            flag=1;
+        }
+        q.pop();
+        cout<<node<<" ";
+        for(auto it:adj[node]){
+            if(!vis[it]){
+                q.push(it);
+                vis[it]=1;
+            }
+        }
+    }
+
+    cout<<endl;
+
+}
+
+
+
+
+void bfs_recurssive(vector<vector<int>>&adj,vector<int>&vis,queue<int>&q,int s){
+    
+    if(q.empty()){
+        return;
+    }
+    
+    int node=q.front();
+    if(s==node){
+        flag=1;
+    }
+    q.pop();
+    cout<<node<<" ";
+    for(auto it:adj[node]){
+        if(!vis[it]){
+            q.push(it);
+            vis[it]=1;
+            bfs_recurssive(adj,vis,q,s);
+        }
+    }
+}
+
+
+
+ 
+
+int main(){
+
+    int n;
+    cin>>n;
+    int m;
+    cin>>m;
+
+    cout<<"Enter starting node.../";
+    int src;
+    cin>>src;
+
+    queue<int> q;
+    q.push(src);
+    
+
+    int s;
+    cout<<"Element to be serched: ";
+    cin>>s;
+
+    vector<vector<int>> adj(n+1);
+
+    for(int i=0;i<m;i++){
+        int u,v;
+        cin>>u>>v;
+        adj[u].push_back(v);
+        adj[v].push_back(u);
+    }
+
+    // vector<int> vis(n+1,0);
+    int ch;
+
+    cout<<"---------------------"<<endl;
+    cout<<"1. DFS"<<endl;
+    cout<<"2. BFS"<<endl;
+    cout<<"3. bfs_ercurssive"<<endl;
+    cout<<"Enter choice...."<<endl;
+    cin>>ch;
+    switch(ch){
+        case 1:{
+
+            vector<int> vis(n+1,0);
+
+            dfs(src,n,m,adj,vis,s);
+            cout<<endl;
+            if(flag==1){
+                cout<<"Element found"<<endl;
+            }
+            else{
+                cout<<"ELement not found"<<endl;
+            }
+            cout<<endl;
+            break;
+        }
+
+        case 2:{
+            flag=0;
+            bfs(src,n,m,adj,s);
+            cout<<endl;
+            if(flag==1){
+                cout<<"Element found"<<endl;                
+            }
+            else{
+                cout<<"Element not found"<<endl;
+            }
+            break;
+        }
+        case 3:{
+            flag=0;
+            vector<int> vis(n+1,0);
+            cout<<endl;
+            bfs_recurssive(adj,vis,q,s);
+            if(flag==1){
+                cout<<"Element  found"<<endl;
+            }
+            else{
+                cout<<"Element not found"<<endl;
+            }
+            break;
+
+        }
+
+        default:
+            cout<<" heheh default"<<endl;
+            break;
+
+
+    }
+
+    // dfs(src,n,m,adj,vis);
+
+    // cout<<endl;
+    // bfs(src,n,m,adj);
+
+    return 0;
+
+}
+
+ 
+

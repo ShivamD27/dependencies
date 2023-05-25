@@ -1,0 +1,379 @@
+
+// #include <bits/stdc++.h>
+// using namespace std;
+// // vector<vector<int>> ans;
+
+// bool isSafe1(int row, int col, vector<string> board, int n)
+// {
+//     // check upper element
+//     int duprow = row;
+//     int dupcol = col;
+
+//     while (row >= 0 && col >= 0)
+//     {
+//         if (board[row][col] == 'Q')
+//             return false;
+//         row--;  
+//         col--;
+//     }
+
+//     col = dupcol;
+//     row = duprow;
+//     while (col >= 0)
+//     {
+//         if (board[row][col] == 'Q')
+//             return false;
+//         col--;
+//     }
+
+//     row = duprow;
+//     col = dupcol;
+//     while (row < n && col >= 0)
+//     {
+//         if (board[row][col] == 'Q')
+//             return false;
+//         row++;
+//         col--;
+//     }
+//     return true;
+// }
+
+// void solve(int col, vector<string> &board, vector<vector<string>> &ans, int n)
+// {
+//     if (col == n)
+//     {
+//         ans.push_back(board);
+//         return;
+//     }
+//     for (int row = 0; row < n; row++)
+//     {
+//         if (isSafe1(row, col, board, n))
+//         {
+//             board[row][col] = 'Q';
+//             solve(col + 1, board, ans, n);
+//             board[row][col] = '.';
+//         }
+//     }
+// }
+
+// void solvebnb(int col, vector<string> &board, vector<vector<string>> &answer, vector<int> &leftrow, vector<int> &upperDiagonal, vector<int> &lowerDiagonal, int n)
+// {
+//     if (col == n)
+//     {
+//         answer.push_back(board);
+//         return;
+//     }
+//     for (int row = 0; row < n; row++)
+//     {
+//         if (leftrow[row] == 0 && lowerDiagonal[row + col] == 0 && upperDiagonal[n - 1 + col - row] == 0)
+//         {
+//             board[row][col] = 'Q';
+//             leftrow[row] = 1;
+//             lowerDiagonal[row + col] = 1;
+//             upperDiagonal[n - 1 + col - row] = 1;
+//             solvebnb(col + 1, board, answer, leftrow, upperDiagonal, lowerDiagonal, n);
+//             board[row][col] = '.';
+//             leftrow[row] = 0;
+//             lowerDiagonal[row + col] = 0;
+//             upperDiagonal[n - 1 + col - row] = 0;
+//         }
+//     }
+// }
+
+
+// vector < vector < string >> solveNQueenswww(int n) {
+//       vector < vector < string >> answer;
+//       vector < string > board(n);
+//       string s(n, '.');
+//       for (int i = 0; i < n; i++) {
+//         board[i] = s;
+//       }
+//       vector < int > leftrow(n, 0), upperDiagonal(2 * n - 1, 0), lowerDiagonal(2 * n - 1, 0);
+//       solvebnb(0, board, answer, leftrow, upperDiagonal, lowerDiagonal, n);
+//       return answer;
+//     }
+
+
+// vector<vector<string>> solveNQueens(int n)
+// {
+//     vector<vector<string>> ans;
+//     vector<string> board(n);
+//     string s(n, '.');
+//     for (int i = 0; i < n; i++)
+//     {
+//         board[i] = s;
+//     }
+//     solve(0, board, ans, n);
+//     return ans;
+// }
+
+// int main()
+// {
+//     int n;
+//     cout<<"n for nXn chessboard: ";
+//     cin >> n;
+//     int ch = -1;
+
+//     vector<vector<string>> ans = solveNQueens(n);
+//     vector<vector<string>> answer = solveNQueenswww(n);
+
+
+
+//     cout << "----------------------" << endl;
+//     cout << "1. backtracking" << endl;
+//     cout << "2. BnB" << endl;
+//     cout << "Enter choice" << endl;
+
+//     cin >> ch;
+//     switch (ch)
+//     {
+//     case 1:
+//         // vector<vector<string>> ans = solveNQueens(n);
+
+
+//         if (ans.empty())
+//         {
+//             cout << "Solution dos not exist" << endl;
+//         }
+//         else
+//         {
+//             for (int i = 0; i < ans.size(); i++)
+//             {
+//                 cout << "Arrangement " << i + 1 << "\n";
+//                 for (int j = 0; j < ans[0].size(); j++)
+//                 {
+//                     cout << ans[i][j];
+//                     cout << endl;
+//                 }
+//                 cout << endl;
+//             }
+//         }
+//         break;
+
+//     case 2:
+
+//         // vector<vector<string>> ans = solveNQueens(n);
+
+//         if (answer.empty())
+//         {
+//             cout << "Solution dos not exist" << endl;
+//         }
+//         else
+//         {
+//             for (int i = 0; i < answer.size(); i++)
+//             {
+//                 cout << "Arrangement " << i + 1 << "\n";
+
+//                 for (int j = 0; j < answer[0].size(); j++)
+//                 {
+//                     cout << answer[0][j];
+//                     cout << endl;
+//                 }
+//                 cout << endl;
+//             }
+//         }
+//         break;
+
+//     default:
+//         cout << "enter valid choice...." << endl;
+//         break;
+//     }
+
+//     return 0;
+// }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include <bits/stdc++.h>
+using namespace std;
+#define ll long long
+
+
+bool isSafe(int row,int col,vector<string> board,int n){
+
+    int nr=row;
+    int nc=col;
+
+    while(row>=0 && col>=0){
+        if(board[row][col]=='Q'){
+            return false;
+        }
+        row--;
+        col--;
+    }
+
+    row=nr;
+    col=nc;
+    while(col>=0){
+        if(board[row][col]=='Q'){
+            return false;
+
+        }
+        col--;
+    }
+
+    row=nr;
+    col=nc;
+    while(row<n && col>=0){
+        if(board[row][col]=='Q'){
+            return false;
+        }
+        row++;
+        col--;
+    }
+
+    return true;
+
+}
+
+
+void solve(int col,vector<vector<string>> &ans,vector<string> &board, int n){
+    if(col==n){
+        ans.push_back(board);
+        return;
+    }
+
+    for(int row=0;row<n;row++){
+
+        if(isSafe(row,col,board,n)){
+            board[row][col]='Q';
+            solve(col+1,ans,board,n);
+            board[row][col]='.';
+        }
+    }
+
+
+
+}
+
+void solvebnb(int col,vector<vector<string>> &answer,vector<string> &board,vector<int> &rows,vector<int> &lowerdiag,vector<int> &upperdiag,int n){
+    if(col==n){
+        answer.push_back(board);
+        return;
+    }
+    for(int row=0;row<n;row++){
+        if(rows[row]==0 && upperdiag[n-1+col-row]==0 && lowerdiag[col+row]==0){
+            board[row][col]='Q';
+            rows[row]=1;
+            lowerdiag[row+col]=1;
+            upperdiag[n-1+col-row]=1;
+            solvebnb(col+1,answer,board,rows,lowerdiag,upperdiag,n);
+            board[row][col]='.';
+            rows[row]=0;
+            lowerdiag[row+col]=0;
+            upperdiag[n-1+col-row]=0;
+        }
+
+    }
+}
+
+
+vector<vector<string>> solveback(int n){
+    vector<vector<string>> ans;
+    vector<string> board(n);
+    string s(n,'.');
+    for(int i=0;i<n;i++){
+        board[i]=s;
+    }
+
+    solve(0,ans,board,n);
+    return ans;
+}
+
+vector<vector<string>> solvebranch(int n){
+    vector<vector<string>> answer;
+    vector<string> board(n);
+    string s(n,'.');
+    for(int i=0;i<n;i++){
+        board[0]=s;
+    }
+    vector<int> rows(n,0);
+    vector<int> lowerdiag(2*n - 1 , 0);
+    vector<int> upperdiag(2*n - 1 , 0);
+
+    solvebnb(0,answer,board,rows,lowerdiag,upperdiag,n);
+    return answer;
+}
+
+
+int main(){
+    int n;
+    cin>>n;
+    int ch=-1;
+
+    vector<vector<string>> ans=solveback(n);
+    vector<vector<string>> answer=solvebranch(n);
+
+    cout<<"1.backtracking"<<endl;
+    cout<<"2.BnB"<<endl;
+    cout<<"3. exit: "<<endl;
+    cout<<"Enter any choice: "<<endl;
+    cin>>ch;
+    switch(ch){
+        case 1: 
+            if(ans.empty()){
+                cout<<"no solution possible"<<endl;
+            }
+            else{
+                for(int i=0;i<ans.size();i++){
+                    cout<<"assignment: "<<i+1<<": "<<endl;
+                    for(int j=0;j<ans[0].size();j++){
+                        cout<<ans[i][j]<<endl;
+                    }
+                    cout<<endl;
+
+                }
+            }
+            break;
+
+        case 2:
+            if(answer.empty()){
+                cout<<"no solution possible"<<endl;
+            }
+            else{
+                for(int i=0;i<answer.size();i++){
+                    cout<<"assijgf "<<i+1<<" : "<<endl;
+                    for(int j=0;j<ans[0].size();j++){
+                        cout<<ans[i][j]<<endl;
+                    }
+                    cout<<endl;
+
+                }
+
+            }
+            break;
+
+
+        default:
+            cout<<"Shivam"<<endl;
+
+    }
+}

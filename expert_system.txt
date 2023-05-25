@@ -1,0 +1,93 @@
+QUESTIONS = [
+    'Do you know about stock market?',
+    'Are you familiar with trading platforms?',
+    'Have you invested in stock market earlier?',
+    'Do you know concepts of stocks, bonds, equity?',
+    'Do you know options trading?',
+    'Do you know future trading?',
+    'what is the profit percent of the your invested amount?',
+    'Are you comfortable analyzing company fundamentals, such as earnings reports and valuation ratios?',
+    'Do you understand the concept of diversification and the importance of having a well-balanced portfolio?',
+    'Have you ever employed strategies like dollar-cost averaging or value investing in your investment approach?'
+]
+
+
+THRESHOLD = {
+    'Beginner': 0,
+    'Intermediate': 37,
+    'Expert': 70
+}
+
+
+def f(questions,threshold):
+    score = 0
+
+    for x in questions:
+        if(x==questions[6]):
+            print(x)
+            print("Enter the percentage of profit")
+            ls=int(input('>'))
+            if(ls>=70):
+                score+=10
+            elif(ls>=20):
+                score+=6
+            else:
+                score+=1
+            continue
+
+        print(x +"(Y/N)")
+        ans=input('>')
+
+        while(ans!='Y' and ans!='N'):
+            print('please enter valid choice...')
+            print(x +"(Y/N)")
+            ans=input('>')
+
+        if(ans=='Y' and x!=questions[6]):
+            print('rate yourself 1-10')
+            rate=input('>')
+            while( (not rate.isnumeric()) or int(rate)>10 or int(rate) <1 ):
+                print('enter a valid number')
+                print('enter a valid number (1-10)')
+                rate=input('>')
+
+            score+=int(rate)
+        
+
+    print()
+    print()
+
+
+    if(score >= threshold['Expert']):
+        print("According to our system you seem to be an expert at trading!")
+        print("We think that you don't need any tips.")
+
+    elif score >= threshold['Intermediate']:
+        print("Based on your answers you seem to be intermediate")
+        print("You are advised to learn more things about trading and ")
+        print("You can visit www.zerodha.com for any information you need")
+
+    elif score >= threshold['Beginner']:
+        print("Based on your answers you seem to be a beginner in trading.")
+        print("You are advised to learn about basics of stock market.")
+        print("You can start by investing small amount of money as you wish and get familiar with trading platforms")
+        print("You can visit www.zerodha.com for any information you need")
+
+    print()
+    print()
+
+
+# if '__main__'==__name__:
+print("\n\n\tWelcome To The Stock Market EXPERT SYSTEM\n")
+print("\tNote : Please answer the following questions \n\n")
+f(QUESTIONS, THRESHOLD)
+
+
+
+
+        
+
+        
+
+
+    
