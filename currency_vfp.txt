@@ -1,0 +1,49 @@
+<apex:page controller="CC_final_backend">
+    
+    <apex:form >
+        <apex:pageBlock title="Currency">
+        <apex:pageBlockSection >
+            <apex:pageBlockSectionItem >
+                <apex:outputText >Enter Amount</apex:outputText>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:inputText value="{!amount}" label="Enter amount" required="true"/>                                                                                                                             
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >FROM</apex:outputLabel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:selectList label="from" value="{!fromC}">
+                    <apex:selectOption itemValue="" itemLabel="--select--"></apex:selectOption>
+                    <apex:selectOption itemValue="JPY" itemLabel="JPY"></apex:selectOption>
+                    <apex:selectOption itemValue="USD" itemLabel="USD"></apex:selectOption>
+                    <apex:selectOption itemValue="GBP" itemLabel="GBP"></apex:selectOption>                    
+                    <apex:selectOption itemValue="INR" itemLabel="INR"></apex:selectOption>                    
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:outputLabel >TO</apex:outputLabel>
+            </apex:pageBlockSectionItem>
+            <apex:pageBlockSectionItem >
+                <apex:selectList label="to" value="{!toC}" required="true">
+                    <apex:selectOption itemValue="" itemLabel="--select--"></apex:selectOption>
+                    <apex:selectOption itemValue="JPY" itemLabel="JPY"></apex:selectOption>
+                    <apex:selectOption itemValue="USD" itemLabel="USD"></apex:selectOption>
+                    <apex:selectOption itemValue="GBP" itemLabel="GBP"></apex:selectOption>                    
+                    <apex:selectOption itemValue="INR" itemLabel="INR"></apex:selectOption>                    
+                </apex:selectList>
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:commandButton action="{!calc}" value="calculate" />
+            </apex:pageBlockSectionItem>
+            
+            <apex:pageBlockSectionItem >
+                <apex:inputText value="{!result}" label="output"/>
+            </apex:pageBlockSectionItem>
+            
+        </apex:pageBlockSection>
+            </apex:pageBlock>
+    </apex:form>
+</apex:page>

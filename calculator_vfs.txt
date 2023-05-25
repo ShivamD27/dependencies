@@ -1,0 +1,37 @@
+<apex:page controller="calculator">
+    <apex:sectionHeader title="calculator" subtitle="Basic calaculator"/>
+    <apex:form >
+        <apex:pageBlock title="Simple calculator">
+            <apex:pageBlockButtons location="bottom">
+            <apex:commandButton value="Addition" action="{!Addition}" />
+            <apex:commandButton value="Subtraction" action="{!Subtraction}" />
+            <apex:commandButton value="Multiplication" action="{!Multiplication}" />
+            <apex:commandButton value="Division" action="{!Division}" />
+            <apex:commandButton value="Sin" action="{!sin}" />
+            <apex:commandButton value="Cos" action="{!cos}" />
+            <apex:commandButton value="Tan" action="{!tan}" />
+            <apex:commandButton value="Cot" action="{!cot}" />
+                
+            <apex:commandButton value="Sqrt" action="{!sqrt}" />
+            <apex:commandButton value="Cbrt" action="{!cbrt}" />
+            <apex:commandButton value="Square" action="{!square}"/>
+            <apex:commandButton value="Cube" action="{!cube}"/>                
+            <apex:commandButton value="Logbase_e" action="{!log}"/>
+                
+
+
+            </apex:pageBlockButtons>
+            <apex:pageBlockSection title="calculator" >
+                <apex:inputText label="Enter first Number" html-placeholder="First Number" value="{!first}"/>
+				<apex:inputText label="Enter second Number" html-placeholder="second Number" value="{!second}"/>
+                
+				<apex:inputText label="Enter degreee Number" html-placeholder="second Number" value="{!funcv}"/>                
+                
+                <apex:outputText label="Result" value="{!result}" />
+                <apex:outputText label="Status" value="{!status}" />            
+                
+            </apex:pageBlockSection>
+            
+        </apex:pageBlock>
+    </apex:form>
+</apex:page>
