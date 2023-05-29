@@ -1,0 +1,220 @@
+import numpy as np
+import nltk
+nltk.download('punkt')
+
+
+string1="I am Vinit Verulkar. I like to draw. Drawings are a very interesting tool to express your emotions. Using different colors in your drawing makes it more attractive and better. Drawings are very good in case of mental issues. "
+string2="I am Sonali Verulkar. I like to draw. Drawings are a very interesting tool to express your emotions. Using different colors in your drawing makes it more attractive and better. Drawings are very good in case of mental issues. "
+string3="Hello all good to see you all here . Hope you are doing well. I am also ok"
+
+
+
+token1=nltk.word_tokenize(string1)
+token2=nltk.word_tokenize(string2)
+token3=nltk.word_tokenize(string3)
+token1
+
+
+
+from nltk.corpus import stopwords
+nltk.download('stopwords')
+
+
+
+#tokenised list
+l=[token1,token2,token3]
+stop_words = stopwords.words('english')
+stop_words.append({'and','I','the','or'})
+print(stop_words)
+
+
+
+
+cleaned_tokens=[]
+for x in l:
+  temp=[]
+  # print(x)
+  for i in x:
+    if i.lower() not in stop_words:
+      temp.append(i.lower())
+  cleaned_tokens.append(temp)
+cleaned_tokens
+# print(x)
+
+
+
+
+
+from nltk.stem import PorterStemmer
+stemmer=PorterStemmer()
+
+
+
+
+
+
+stemmed_sentences=[]
+for x in l:
+  stemmed=[]
+  for word in x:
+    stemmed.append(stemmer.stem(word))
+  stemmed_sentences.append((' ').join(stemmed))
+
+
+
+
+
+
+from nltk.stem import WordNetLemmatizer 
+lemmatizer=WordNetLemmatizer()
+nltk.download('wordnet')
+
+
+
+
+lemmatized_sentences=[]
+for x in l:
+  lemmatized=[lemmatizer.lemmatize(i) for i in x]
+  lemmatized_sentences.append((' ').join(lemmatized))
+
+lemmatized_sentences
+
+
+
+
+
+
+from nltk import pos_tag
+nltk.download('averaged_perceptron_tagger')
+
+
+
+
+
+# instead of word it req list of tokens
+
+tagged=[]
+for x in l:
+  tagged.append(pos_tag(x))
+tagged
+
+
+
+
+
+
+
+l1=[]
+for x in cleaned_tokens:
+  temp = []
+  for i in x:
+    if i!='.':
+      temp.append(i)
+  l1.append(temp)
+
+
+
+
+
+
+
+
+
+
+tf1={}
+tf2={}
+tf3={}
+setg = set()    #IDF madhe req.
+
+for i in l1[0]:
+    if i in tf1: tf1[i]+=1
+    else: tf1[i]=1
+    setg.add(i)
+
+for i in l1[1]:
+    if i in tf2: tf2[i]+=1
+    else: tf2[i]=1
+    setg.add(i)
+
+
+for i in l1[2]:
+    if i in tf3: tf3[i]+=1
+    else: tf3[i]=1
+    setg.add(i)
+
+
+for key,value in tf1.items():
+    tf1[key]=value/len(l1[0])
+for key,value in tf2.items():
+    tf2[key]=value/len(l1[1])
+for key,value in tf3.items():
+    tf3[key]=value/len(l1[2])
+print(tf1)
+print(tf2)
+print(tf3)
+
+
+
+
+
+
+
+
+
+import math
+print('IDF')
+lis={}
+
+for x in setg:
+  c=0
+  if x in tf1.keys():
+    c+=1
+  if x in tf2.keys():
+    c+=1
+  if x in tf3.keys():
+    c+=1
+
+  lis[x]=math.log(3/c)
+  print(x,"         ", math.log(3/c))
+
+
+
+
+
+
+
+
+
+
+for x in tf1:
+  print(x,"      ",tf1[x]*lis[x])
+print()
+print()
+
+for x in tf2:
+  print(x,"      ",tf2[x]*lis[x])
+
+print()
+print()
+
+for x in tf3:
+  print(x,"      ",tf3[x]*lis[x])
+
+
+print()
+print()
+
+#more the  value , more imp the word....
+
+
+
+
+
+
+
+
+
+
+
+
+
